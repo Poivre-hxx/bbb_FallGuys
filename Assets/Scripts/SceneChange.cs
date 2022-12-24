@@ -21,11 +21,9 @@ public class SceneChange : MonoBehaviour
 
     public void LoginSceneChange()
     {
+        
         SceneManager.LoadScene("InGame");
     }
 
-    public void InGameSceneChange()
-    {
-        SceneManager.LoadScene("Ending");
-    }
+
 }

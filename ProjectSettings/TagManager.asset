@@ -9,6 +9,8 @@ TagManager:
   - Hammer
   - Floor
   - Platform
+  - FxTemporaire
+  - Destination
   layers:
   - Default
   - TransparentFX

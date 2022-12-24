@@ -50,6 +50,7 @@ public class WNDMoover : MonoBehaviour
         {
             if (objsToMoove[i] != null)
             {
+                // speed *= Random.Range(0.9f, 1f);
                 objsToMoove[i].localPosition = Vector3.MoveTowards(objsToMoove[i].localPosition, posToMoove[i], speed);
                 if (Vector3.Distance(objsToMoove[i].localPosition, posToMoove[i]) < 0.1f)
                 {

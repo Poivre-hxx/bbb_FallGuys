@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class MainPlayer : MonoBehaviour
 {
     public float speed = 10;
-    public float rotateSpeed = 15;
-    public float jumpPower = 1;
+    public float rotateSpeed = 10;
+    public float jumpPower = 5;
 
     private Camera currentCamera;
     public bool UseCameraRotation = true;
@@ -71,7 +71,7 @@ public class MainPlayer : MonoBehaviour
     {
         hAxis = Input.GetAxis("Horizontal");
         vAxis = Input.GetAxis("Vertical");
-        jDown = Input.GetButtonDown("Jump");
+        jDown = Input.GetButton("Jump");
     }
     void Move()
     {
@@ -119,7 +119,6 @@ public class MainPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Floor")
         {
-            Debug.Log("Floor");
             // anim.SetBool("isGround", false);
             //isGround = false;
             anim.SetBool("isJump", false);
