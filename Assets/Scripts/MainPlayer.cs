@@ -1,53 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainPlayer : MonoBehaviour
 {
-
     public float speed = 10;
-
-    public float rotateSpeed = 5;
-
-    public float jumpPower = 5;
-
+    public float rotateSpeed = 15;
+    public float jumpPower = 1;
 
     private Camera currentCamera;
     public bool UseCameraRotation = true;
 
-
     public ParticleSystem dust;
 
-
     public GameObject bar;
-
 
     public string playerTag;
     public float bounceForce;
     public ParticleSystem bounce;
 
-
-
     public AudioSource mysfx;
     public AudioClip jumpfx;
     public AudioClip bouncefx;
 
-
     Animator anim;
     Rigidbody rigid;
 
+    // 动作全局变量
     bool isJump;
-
     bool jDown;
-
     bool isDie;
-
     float hAxis;
     float vAxis;
 
     Vector3 moveVec;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -57,7 +46,8 @@ public class MainPlayer : MonoBehaviour
         bar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 3.35f, 0));
     }
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         currentCamera = FindObjectOfType<Camera>();
     }
@@ -77,45 +67,34 @@ public class MainPlayer : MonoBehaviour
     {
         rigid.angularVelocity = Vector3.zero;
     }
-
     void GetInput()
     {
         hAxis = Input.GetAxis("Horizontal");
         vAxis = Input.GetAxis("Vertical");
-        jDown = Input.GetButton("Jump");
+        jDown = Input.GetButtonDown("Jump");
     }
-
     void Move()
     {
-
         moveVec = new Vector3(hAxis, 0, vAxis).normalized;
 
-
-        if (UseCameraRotation) 
+        if (UseCameraRotation)
         {
-
             Quaternion v3Rotation = Quaternion.Euler(0f, currentCamera.transform.eulerAngles.y, 0f);
-
             moveVec = v3Rotation * moveVec;
         }
-
         transform.position += moveVec * speed * Time.deltaTime;
-
         anim.SetBool("isMove", moveVec != Vector3.zero);
     }
-
     void Turn()
     {
-
         if (hAxis == 0 && vAxis == 0)
             return;
+
         Quaternion newRotation = Quaternion.LookRotation(moveVec);
         rigid.rotation = Quaternion.Slerp(rigid.rotation, newRotation, rotateSpeed * Time.deltaTime);
     }
-
     void Jump()
     {
-
         if (jDown && !isJump)
         {
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
@@ -127,7 +106,6 @@ public class MainPlayer : MonoBehaviour
             dust.Play();
         }
     }
-
     void Die()
     {
         if (isDie)
@@ -141,23 +119,22 @@ public class MainPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Floor")
         {
+            Debug.Log("Floor");
             // anim.SetBool("isGround", false);
-            // isGround = false;
+            //isGround = false;
             anim.SetBool("isJump", false);
 
             isJump = false;
         }
-
         else if (collision.gameObject.tag == "Platform")
         {
             anim.SetBool("isJump", false);
 
             isJump = false;
         }
-
-
         else if (collision.collider.tag == "Wall")
         {
+            Debug.Log("Wall");
             anim.SetTrigger("doDie");
             isDie = false;
 
@@ -169,7 +146,6 @@ public class MainPlayer : MonoBehaviour
 
             bounce.transform.position = transform.position;
         }
-
     }
 
     void Expression()
@@ -189,4 +165,6 @@ public class MainPlayer : MonoBehaviour
             anim.SetTrigger("doVictory");
         }
     }
+
+
 }

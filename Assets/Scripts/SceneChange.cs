@@ -11,7 +11,8 @@ public class SceneChange : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "InGame")
         {
-            if (Input.GetMouseButtonDown(0))
+            // 检测到按下bdr键，切换到"ending"
+            if (Input.GetKeyDown(KeyCode.B) && Input.GetKeyDown(KeyCode.D) && Input.GetKeyDown(KeyCode.R))
             {
                 SceneManager.LoadScene("Ending");
             }
