@@ -43,7 +43,7 @@ public class MainPlayer : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         bar.SetActive(true);
-        bar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 3.35f, 0));
+        bar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 2.2f, 0));
     }
 
     // Start is called before the first frame update
